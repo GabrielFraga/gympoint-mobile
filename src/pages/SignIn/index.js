@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Image } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import logo from '~/assets/logo.png';
+
+import { signInRequest } from '~/store/modules/auth/actions';
 
 import Input from '~/components/Input';
 import Button from '~/components/Button';
@@ -9,7 +12,15 @@ import Background from '../../components/Background';
 import { Container, Form } from './styles';
 
 export default function SignIn() {
-  function handleSubmit() {}
+  const dispatch = useDispatch();
+
+  const [id, setId] = useState();
+
+  const loading = useSelector(state => state.auth.loading);
+
+  function handleSubmit() {
+    dispatch(signInRequest(id));
+  }
   return (
     <Background>
       <Container>
@@ -19,8 +30,12 @@ export default function SignIn() {
             placeholder="Informe seu ID de cadastro"
             returnKeyType="send"
             onSubmitEditing={handleSubmit}
+            value={id}
+            onChangeText={setId}
           />
-          <Button onPress={handleSubmit}>Entrar</Button>
+          <Button loading={loading} onPress={handleSubmit}>
+            Entrar
+          </Button>
         </Form>
       </Container>
     </Background>
