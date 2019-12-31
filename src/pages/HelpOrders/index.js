@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { withNavigationFocus } from 'react-navigation';
-import { Alert } from 'react-native';
+
+import { TouchableWithoutFeedback } from 'react-native';
 
 import formatDistance from 'date-fns/formatDistance';
 import pt from 'date-fns/locale/pt';
@@ -13,7 +14,7 @@ import api from '~/services/api';
 import Background from '~/components/Background';
 import Button from '~/components/Button';
 
-import { List, Item, Question, Created, Status, Stats } from './styles';
+import { List, Item, Content, Created, Status, Stats } from './styles';
 
 function HelpOrders({ navigation, isFocused }) {
   const [helpOrders, setHelpOrders] = useState([]);
@@ -37,8 +38,13 @@ function HelpOrders({ navigation, isFocused }) {
     }
   }, [isFocused, userId]);
 
-  async function handleClick() {
+  function createHelpOrder() {
     navigation.navigate('CreateHelpOrder');
+  }
+  function ViewAnswer(item) {
+    navigation.navigate('ViewAnswer', {
+      item,
+    });
   }
   return (
     <Background>
@@ -46,7 +52,7 @@ function HelpOrders({ navigation, isFocused }) {
         style={{
           marginBottom: 15,
         }}
-        onPress={handleClick}>
+        onPress={createHelpOrder}>
         Novo pedido de auxílio
       </Button>
       {helpOrders ? (
@@ -54,17 +60,18 @@ function HelpOrders({ navigation, isFocused }) {
           data={helpOrders}
           keyExtractor={help => String(help.id)}
           renderItem={({ item }) => (
-            <Item>
-              <Stats>
-                <Status answer={item.answer}>
-                  <Icon name="check-circle" size={20} />
-                  {item.answer ? 'Respondido' : 'Sem Resposta'}{' '}
-                </Status>
-                <Created>{item.distanceTime}</Created>
-              </Stats>
-
-              <Question>{item.question}</Question>
-            </Item>
+            <TouchableWithoutFeedback onPress={() => ViewAnswer(item)}>
+              <Item>
+                <Stats>
+                  <Status answer={item.answer}>
+                    <Icon name="check-circle" size={20} />
+                    {item.answer ? 'Respondido' : 'Sem Resposta'}{' '}
+                  </Status>
+                  <Created>{item.distanceTime}</Created>
+                </Stats>
+                <Content>{item.question}</Content>
+              </Item>
+            </TouchableWithoutFeedback>
           )}
         />
       ) : (

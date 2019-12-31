@@ -32,12 +32,40 @@ export const Status = styled.Text`
   font-size: 16px;
 `;
 
+export const Content = styled.Text.attrs({
+  numberOfLines: 3,
+})`
+  color: #666;
+`;
+
 export const Created = styled.Text`
   color: #888;
 `;
 
-export const Question = styled.Text.attrs({
-  numberOfLines: 3,
-})`
+export const Title = styled.Text`
+  color: #333;
+  font-weight: bold;
+`;
+
+export const Container = styled.View`
+  background: #fff;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  justify-content: space-evenly;
+`;
+export const Question = styled.Text`
   color: #666;
+`;
+export const OrderContent = styled.Text`
+  color: #666;
+`;
+export const QuestionContainer = styled.View``;
+export const AnswerContainer = styled.View`
+  padding: 20px 0;
+`;
+export const QuestionStatus = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
 `;

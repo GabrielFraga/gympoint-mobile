@@ -11,7 +11,8 @@ import logo from '~/assets/logo-horizontal.png';
 import SignIn from './pages/SignIn';
 import CheckIns from './pages/CheckIns';
 import HelpOrders from './pages/HelpOrders';
-import CreateHelpOrder from './pages/HelpOrders/createHelpOrder';
+import CreateHelpOrder from './pages/HelpOrders/create';
+import ViewAnswer from './pages/HelpOrders/viewAnswer';
 
 const LogoTitle = () => {
   return (
@@ -36,6 +37,7 @@ const help = createStackNavigator(
   {
     HelpOrders,
     CreateHelpOrder,
+    ViewAnswer,
   },
   {
     headerLayoutPreset: 'center',
