@@ -37,15 +37,8 @@ function HelpOrders({ navigation, isFocused }) {
     }
   }, [isFocused, userId]);
 
-  async function handleSubmit() {
-    try {
-      await api.post(`students/${userId}/help-orders`).then(async r => {
-        Alert.alert('Peido enviado com sucesso! Aguarde uma resposta');
-      });
-    } catch (error) {
-      Alert.alert('Ocorreu um erro. Tente novamente mais tarde.');
-    }
-    loadHelpOrders(userId);
+  async function handleClick() {
+    navigation.navigate('CreateHelpOrder');
   }
   return (
     <Background>
@@ -53,8 +46,8 @@ function HelpOrders({ navigation, isFocused }) {
         style={{
           marginBottom: 15,
         }}
-        onPress={handleSubmit}>
-        Novo check-in
+        onPress={handleClick}>
+        Novo pedido de auxílio
       </Button>
       {helpOrders ? (
         <List
