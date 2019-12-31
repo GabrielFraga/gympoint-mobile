@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View, Text } from 'react-native';
+import { Image, View } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -12,16 +12,27 @@ import SignIn from './pages/SignIn';
 import CheckIns from './pages/CheckIns';
 import HelpOrders from './pages/HelpOrders';
 
-const LogoTitle = ({ navigation }) => {
+const LogoTitle = () => {
   return (
     <View>
       <Image source={logo} />
     </View>
   );
 };
-const StackOptions = createStackNavigator(
+const check = createStackNavigator(
   {
     CheckIns,
+  },
+  {
+    headerLayoutPreset: 'center',
+    headerBackTitleVisible: false,
+    defaultNavigationOptions: {
+      headerTitle: <LogoTitle />,
+    },
+  },
+);
+const help = createStackNavigator(
+  {
     HelpOrders,
   },
   {
@@ -43,7 +54,7 @@ export default (signedIn = false) =>
         App: createBottomTabNavigator(
           {
             CheckIns: {
-              screen: StackOptions,
+              screen: check,
               navigationOptions: {
                 tabBarLabel: 'Check-ins',
                 tabBarIcon: ({ tintColor }) => (
@@ -56,7 +67,7 @@ export default (signedIn = false) =>
               },
             },
             HelpOrders: {
-              screen: StackOptions,
+              screen: help,
               navigationOptions: {
                 tabBarLabel: 'Pedir Ajuda',
                 tabBarIcon: ({ tintColor }) => (
